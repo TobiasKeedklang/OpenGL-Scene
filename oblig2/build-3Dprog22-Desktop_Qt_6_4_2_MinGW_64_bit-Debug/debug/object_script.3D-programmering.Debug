@@ -1,0 +1,15 @@
+debug/main.o
+debug/camera.o
+debug/door.o
+debug/house.o
+debug/interactiveobject.o
+debug/logger.o
+debug/mainwindow.o
+debug/plane.o
+debug/renderwindow.o
+debug/shader.o
+debug/tobject.o
+debug/vertex.o
+debug/visualobject.o
+debug/moc_mainwindow.o
+debug/moc_renderwindow.o
