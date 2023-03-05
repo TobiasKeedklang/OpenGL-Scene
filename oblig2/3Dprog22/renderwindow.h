@@ -51,6 +51,9 @@ private:
     QVector3D cameraAt;
     QVector3D cameraUp;
 
+    bool keyPressed = false;
+    bool cameraSwitched = false;
+
     QOpenGLContext *mContext{nullptr};  //Our OpenGL context
     bool mInitialized{false};
 

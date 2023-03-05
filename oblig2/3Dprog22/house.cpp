@@ -3,6 +3,7 @@
 House::House()
 {
     //     v  x    y    z     r g b     mVertices
+
     // Back wall
     Vertex v0{-10.0f, 0.0f, -10.0f, 0, 1, 0};   mVertices.push_back(v0);
     Vertex v1{-5.0f, 0.0f, -10.0f, 0, 1, 0};   mVertices.push_back(v1);
@@ -31,42 +32,31 @@ House::House()
     Vertex v17{-5.0f, 5.0f, -5.0f, 0, 1, 0};   mVertices.push_back(v17);
 
     // Front wall-left
-    Vertex v18{-10.0f, 0.0f, -5.0f, 1, 0, 0};   mVertices.push_back(v18);
-    Vertex v19{-8.0f, 0.0f, -5.0f, 1, 0, 0};   mVertices.push_back(v19);
-    Vertex v20{-8.0f, 5.0f, -5.0f, 1, 0, 0};   mVertices.push_back(v20);
+    Vertex v18{-10.0f, 0.0f, -5.0f, 0, 1, 0};   mVertices.push_back(v18);
+    Vertex v19{-8.0f, 0.0f, -5.0f, 0, 1, 0};   mVertices.push_back(v19);
+    Vertex v20{-8.0f, 5.0f, -5.0f, 0, 1, 0};   mVertices.push_back(v20);
 
-    Vertex v21{-10.0f, 0.0f, -5.0f, 1, 0, 0};   mVertices.push_back(v21);
-    Vertex v22{-10.0f, 5.0f, -5.0f, 1, 0, 0};   mVertices.push_back(v22);
-    Vertex v23{-8.0f, 5.0f, -5.0f, 1, 0, 0};   mVertices.push_back(v23);
+    Vertex v21{-10.0f, 0.0f, -5.0f, 0, 1, 0};   mVertices.push_back(v21);
+    Vertex v22{-10.0f, 5.0f, -5.0f, 0, 1, 0};   mVertices.push_back(v22);
+    Vertex v23{-8.0f, 5.0f, -5.0f, 0, 1, 0};   mVertices.push_back(v23);
 
     // Front wall-right
-    Vertex v24{-7.0f, 0.0f, -5.0f, 1, 0, 0};   mVertices.push_back(v24);
-    Vertex v25{-5.0f, 0.0f, -5.0f, 1, 0, 0};   mVertices.push_back(v25);
-    Vertex v26{-5.0f, 5.0f, -5.0f, 1, 0, 0};   mVertices.push_back(v26);
+    Vertex v24{-7.0f, 0.0f, -5.0f, 0, 1, 0};   mVertices.push_back(v24);
+    Vertex v25{-5.0f, 0.0f, -5.0f, 0, 1, 0};   mVertices.push_back(v25);
+    Vertex v26{-5.0f, 5.0f, -5.0f, 0, 1, 0};   mVertices.push_back(v26);
 
-    Vertex v27{-7.0f, 0.0f, -5.0f, 1, 0, 0};   mVertices.push_back(v27);
-    Vertex v28{-7.0f, 5.0f, -5.0f, 1, 0, 0};   mVertices.push_back(v28);
-    Vertex v29{-5.0f, 5.0f, -5.0f, 1, 0, 0};   mVertices.push_back(v29);
+    Vertex v27{-7.0f, 0.0f, -5.0f, 0, 1, 0};   mVertices.push_back(v27);
+    Vertex v28{-7.0f, 5.0f, -5.0f, 0, 1, 0};   mVertices.push_back(v28);
+    Vertex v29{-5.0f, 5.0f, -5.0f, 0, 1, 0};   mVertices.push_back(v29);
 
     // Front wall-middle (above door)
-    Vertex v30{-8.0f, 4.0f, -5.0f, 1, 0, 0};   mVertices.push_back(v30);
-    Vertex v31{-7.0f, 4.0f, -5.0f, 1, 0, 0};   mVertices.push_back(v31);
-    Vertex v32{-7.0f, 5.0f, -5.0f, 1, 0, 0};   mVertices.push_back(v32);
+    Vertex v30{-8.0f, 4.0f, -5.0f, 0, 1, 0};   mVertices.push_back(v30);
+    Vertex v31{-7.0f, 4.0f, -5.0f, 0, 1, 0};   mVertices.push_back(v31);
+    Vertex v32{-7.0f, 5.0f, -5.0f, 0, 1, 0};   mVertices.push_back(v32);
 
-    Vertex v33{-8.0f, 4.0f, -5.0f, 1, 0, 0};   mVertices.push_back(v33);
-    Vertex v34{-8.0f, 5.0f, -5.0f, 1, 0, 0};   mVertices.push_back(v34);
-    Vertex v35{-7.0f, 5.0f, -5.0f, 1, 0, 0};   mVertices.push_back(v35);
-
-    // Left roof
-    /*
-    Vertex v42{-10.0f, 3.5f, -10.0f, 0, 0, 1};   mVertices.push_back(v42);
-    Vertex v43{-7.5f, 3.5f, -7.5f, 0, 0, 1};   mVertices.push_back(v43);
-    Vertex v44{-7.5f, 5.0f, -7.5f, 0, 0, 1};   mVertices.push_back(v44);
-
-    Vertex v45{-10.0f, 3.5f, -10.0f, 0, 0, 1};   mVertices.push_back(v45);
-    Vertex v46{-10.0f, 5.0f, -10.0f, 0, 0, 1};   mVertices.push_back(v46);
-    Vertex v47{-7.5f, 5.0f, -7.5f, 0, 0, 1};   mVertices.push_back(v47);
-    */
+    Vertex v33{-8.0f, 4.0f, -5.0f, 0, 1, 0};   mVertices.push_back(v33);
+    Vertex v34{-8.0f, 5.0f, -5.0f, 0, 1, 0};   mVertices.push_back(v34);
+    Vertex v35{-7.0f, 5.0f, -5.0f, 0, 1, 0};   mVertices.push_back(v35);
 
     mMatrix.setToIdentity();
 }

@@ -60,8 +60,7 @@ RenderWindow::RenderWindow(const QSurfaceFormat &format, MainWindow *mainWindow)
 
     door = new Door;
     mObjects.push_back(door);
-
-    //mObjects.push_back(new tObject("plane.txt"));
+    door->setPosition3D(QVector3D{0.0f, 0.0f, 0.0f});
 
     // Trophies: tObject(x, y, z, radius)
     trophies.push_back(new tObject(0.5f, 0.0f, -0.5f, 0.2));
@@ -78,6 +77,10 @@ RenderWindow::RenderWindow(const QSurfaceFormat &format, MainWindow *mainWindow)
         mObjects.push_back(trophies[i]);
         trophies[i]->setRenderStyle(0);
     }
+
+    cameraEye = QVector3D{6.0f, 2.5f, 6.0f};
+    cameraAt = QVector3D{0.0f, 0.0f, 0.0f};
+    cameraUp = QVector3D{0.0f, 1.0f, 0.0f};
 }
 
 RenderWindow::~RenderWindow()
@@ -176,7 +179,9 @@ void RenderWindow::render()
 
     //moves camera
 //    mVmatrix->translate(0, 0, 5);
-    mCamera.lookAt(QVector3D{6.0f, 2.5f, 6.0f}, QVector3D{0.0f, 0.0f, 0.0f}, QVector3D{0.0f, 1.0f, 0.0f});
+
+    //mCamera.lookAt(QVector3D{6.0f, 2.5f, 6.0f}, QVector3D{0.0f, 0.0f, 0.0f}, QVector3D{0.0f, 1.0f, 0.0f});
+    mCamera.lookAt(cameraEye, cameraAt, cameraUp);
     mCamera.update();
 
     //the actual draw call(s)
@@ -354,6 +359,31 @@ void RenderWindow::keyPressEvent(QKeyEvent *event)
     if (event->key() == Qt::Key_D) controller.moveRight = true;
     if (event->key() == Qt::Key_W) controller.moveUp = true;
     if (event->key() == Qt::Key_S) controller.moveDown = true;
+
+    if (event->key() == Qt::Key_R)
+    {
+        if (!keyPressed)
+        {
+            door->rotateY(90);
+            door->setPosition3D(QVector3D{-12.0f, 0.0f, 2.0f});
+            keyPressed = true;
+        }
+
+        if (!cameraSwitched)
+        {
+            cameraEye = QVector3D{-5.1f, 2.5, -5.1f};
+            cameraAt = QVector3D{-7.5f, 0.0f, -7.5f};
+        }
+
+        if (cameraSwitched)
+        {
+            cameraEye = QVector3D{6.0f, 2.5f, 6.0f};
+            cameraAt = QVector3D{0.0f, 0.0f, 0.0f};
+            cameraUp = QVector3D{0.0f, 1.0f, 0.0f};
+        }
+
+        cameraSwitched = !cameraSwitched;
+    }
 }
 
 void RenderWindow::keyReleaseEvent(QKeyEvent *event)

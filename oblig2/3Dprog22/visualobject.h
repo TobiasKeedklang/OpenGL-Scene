@@ -26,6 +26,11 @@ public:
     void setRenderStyle(int input);
     bool mRotate;
 
+    void rotateX(GLfloat degrees);
+    void rotateY(GLfloat degrees);
+    void rotateZ(GLfloat degrees);
+    void setPosition3D(QVector3D inPos);
+
 protected:
     std::vector<Vertex> mVertices;
     GLuint mVAO{0};
