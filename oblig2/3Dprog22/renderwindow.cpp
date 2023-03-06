@@ -406,7 +406,7 @@ void RenderWindow::keyPressEvent(QKeyEvent *event)
     if (event->key() == Qt::Key_W) controller.moveUp = true;
     if (event->key() == Qt::Key_S) controller.moveDown = true;
 
-    if (event->key() == Qt::Key_R)
+    if (event->key() == Qt::Key_E)
     {
         if (!keyPressed)
         {
@@ -420,7 +420,10 @@ void RenderWindow::keyPressEvent(QKeyEvent *event)
             door->setPosition3D(QVector3D{0.0f, 0.0f, 0.0f});
             keyPressed = false;
         }
+    }
 
+    if (event->key() == Qt::Key_R)
+    {
         if (!cameraSwitched)
         {
             cameraEye = QVector3D{-9.9f, 2.5, -9.9f};
