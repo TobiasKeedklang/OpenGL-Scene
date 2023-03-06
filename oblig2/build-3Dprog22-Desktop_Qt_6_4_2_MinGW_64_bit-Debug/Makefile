@@ -165,8 +165,16 @@ Makefile: ../3Dprog22/3Dprog22.pro C:/Qt/6.4.2/mingw_64/mkspecs/win32-g++/qmake.
 		C:/Qt/6.4.2/mingw_64/mkspecs/modules/qt_lib_quicktemplates2.pri \
 		C:/Qt/6.4.2/mingw_64/mkspecs/modules/qt_lib_quicktemplates2_private.pri \
 		C:/Qt/6.4.2/mingw_64/mkspecs/modules/qt_lib_quicktestutilsprivate_private.pri \
+		C:/Qt/6.4.2/mingw_64/mkspecs/modules/qt_lib_quicktimeline.pri \
+		C:/Qt/6.4.2/mingw_64/mkspecs/modules/qt_lib_quicktimeline_private.pri \
 		C:/Qt/6.4.2/mingw_64/mkspecs/modules/qt_lib_quickwidgets.pri \
 		C:/Qt/6.4.2/mingw_64/mkspecs/modules/qt_lib_quickwidgets_private.pri \
+		C:/Qt/6.4.2/mingw_64/mkspecs/modules/qt_lib_remoteobjects.pri \
+		C:/Qt/6.4.2/mingw_64/mkspecs/modules/qt_lib_remoteobjects_private.pri \
+		C:/Qt/6.4.2/mingw_64/mkspecs/modules/qt_lib_remoteobjectsqml.pri \
+		C:/Qt/6.4.2/mingw_64/mkspecs/modules/qt_lib_remoteobjectsqml_private.pri \
+		C:/Qt/6.4.2/mingw_64/mkspecs/modules/qt_lib_repparser.pri \
+		C:/Qt/6.4.2/mingw_64/mkspecs/modules/qt_lib_repparser_private.pri \
 		C:/Qt/6.4.2/mingw_64/mkspecs/modules/qt_lib_sql.pri \
 		C:/Qt/6.4.2/mingw_64/mkspecs/modules/qt_lib_sql_private.pri \
 		C:/Qt/6.4.2/mingw_64/mkspecs/modules/qt_lib_svg.pri \
@@ -316,8 +324,16 @@ C:/Qt/6.4.2/mingw_64/mkspecs/modules/qt_lib_quickshapes_private.pri:
 C:/Qt/6.4.2/mingw_64/mkspecs/modules/qt_lib_quicktemplates2.pri:
 C:/Qt/6.4.2/mingw_64/mkspecs/modules/qt_lib_quicktemplates2_private.pri:
 C:/Qt/6.4.2/mingw_64/mkspecs/modules/qt_lib_quicktestutilsprivate_private.pri:
+C:/Qt/6.4.2/mingw_64/mkspecs/modules/qt_lib_quicktimeline.pri:
+C:/Qt/6.4.2/mingw_64/mkspecs/modules/qt_lib_quicktimeline_private.pri:
 C:/Qt/6.4.2/mingw_64/mkspecs/modules/qt_lib_quickwidgets.pri:
 C:/Qt/6.4.2/mingw_64/mkspecs/modules/qt_lib_quickwidgets_private.pri:
+C:/Qt/6.4.2/mingw_64/mkspecs/modules/qt_lib_remoteobjects.pri:
+C:/Qt/6.4.2/mingw_64/mkspecs/modules/qt_lib_remoteobjects_private.pri:
+C:/Qt/6.4.2/mingw_64/mkspecs/modules/qt_lib_remoteobjectsqml.pri:
+C:/Qt/6.4.2/mingw_64/mkspecs/modules/qt_lib_remoteobjectsqml_private.pri:
+C:/Qt/6.4.2/mingw_64/mkspecs/modules/qt_lib_repparser.pri:
+C:/Qt/6.4.2/mingw_64/mkspecs/modules/qt_lib_repparser_private.pri:
 C:/Qt/6.4.2/mingw_64/mkspecs/modules/qt_lib_sql.pri:
 C:/Qt/6.4.2/mingw_64/mkspecs/modules/qt_lib_sql_private.pri:
 C:/Qt/6.4.2/mingw_64/mkspecs/modules/qt_lib_svg.pri:

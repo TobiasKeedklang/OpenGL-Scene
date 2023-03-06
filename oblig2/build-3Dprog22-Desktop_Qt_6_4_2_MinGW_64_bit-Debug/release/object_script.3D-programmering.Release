@@ -1,10 +1,13 @@
 release/main.o
 release/camera.o
+release/curve.o
 release/door.o
 release/house.o
 release/interactiveobject.o
+release/line.o
 release/logger.o
 release/mainwindow.o
+release/npc.o
 release/plane.o
 release/renderwindow.o
 release/shader.o

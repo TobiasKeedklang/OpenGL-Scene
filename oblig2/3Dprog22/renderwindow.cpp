@@ -10,6 +10,9 @@
 
 #include <string>
 
+#include "curve.h"
+#include "line.h"
+#include "npc.h"
 #include "shader.h"
 #include "mainwindow.h"
 #include "logger.h"
@@ -61,6 +64,16 @@ RenderWindow::RenderWindow(const QSurfaceFormat &format, MainWindow *mainWindow)
     door = new Door;
     mObjects.push_back(door);
     door->setPosition3D(QVector3D{0.0f, 0.0f, 0.0f});
+
+    curve = new Curve;
+    mObjects.push_back(curve);
+
+    line = new Line;
+    mObjects.push_back(line);
+
+    npc = new NPC;
+    mObjects.push_back(npc);
+    npc_Curve = false;
 
     // Trophies: tObject(x, y, z, radius)
     trophies.push_back(new tObject(0.5f, 0.0f, -0.5f, 0.2));
@@ -157,6 +170,11 @@ void RenderWindow::init()
     for (auto it = mObjects.begin(); it != mObjects.end(); it++)
         (*it)->init(mMatrixUniform);
 
+    // AI movement parametres
+    npc_x = -1.0f;
+    npc_h = 0.001f;
+    npc_swap = true;
+
     glBindVertexArray(0);
 }
 
@@ -228,6 +246,30 @@ void RenderWindow::render()
             }
         }
 
+    }
+
+    //AI movement
+    if (npc) {
+        float npc_y = 0.0f;
+        float npc_z;
+        if (npc_swap)
+        {
+            npc_x += npc_h;
+            if (npc_x >= 1.0f)
+                npc_swap = false;
+        }
+        else
+        {
+            npc_x -= npc_h;
+            if (npc_x <= -1.0f)
+                npc_swap = true;
+        }
+
+        if (npc_Curve)
+            npc_z = pow(npc_x, 2);
+        else
+            npc_z = -npc_x;
+        npc->move(npc_x, npc_y, npc_z);
     }
 }
 
@@ -384,6 +426,9 @@ void RenderWindow::keyPressEvent(QKeyEvent *event)
 
         cameraSwitched = !cameraSwitched;
     }
+
+    //toggle npc movement graph
+    if (event->key() == Qt::Key_F)  npc_Curve = !npc_Curve;
 }
 
 void RenderWindow::keyReleaseEvent(QKeyEvent *event)

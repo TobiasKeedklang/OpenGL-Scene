@@ -1,10 +1,13 @@
 debug/main.o
 debug/camera.o
+debug/curve.o
 debug/door.o
 debug/house.o
 debug/interactiveobject.o
+debug/line.o
 debug/logger.o
 debug/mainwindow.o
+debug/npc.o
 debug/plane.o
 debug/renderwindow.o
 debug/shader.o

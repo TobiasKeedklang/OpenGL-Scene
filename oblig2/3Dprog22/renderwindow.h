@@ -43,9 +43,17 @@ private:
     VisualObject* plane;
     VisualObject* house;
     VisualObject* door;
+    VisualObject* curve;
+    VisualObject* line;
+    VisualObject* npc;
     Camera mCamera;
     Controller controller;
     void init();            //initialize things we need before rendering
+
+    bool npc_Curve;
+    float npc_x;
+    float npc_h;
+    bool npc_swap;
 
     QVector3D cameraEye;
     QVector3D cameraAt;
