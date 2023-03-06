@@ -59,5 +59,5 @@ void NPC::move(float dx, float dy, float dz)
     my += dy;
     mz += dz;
 
-    mMatrix.translate(dx, dy, dz);
+    setPosition3D(QVector3D{dx, dy, dz});
 }

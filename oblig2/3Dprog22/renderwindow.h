@@ -50,10 +50,8 @@ private:
     Controller controller;
     void init();            //initialize things we need before rendering
 
-    bool npc_Curve;
-    float npc_x;
-    float npc_h;
-    bool npc_swap;
+    bool npc_Curve, npc_swap;
+    float npc_x, npc_h;
 
     QVector3D cameraEye;
     QVector3D cameraAt;

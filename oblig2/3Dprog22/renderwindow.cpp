@@ -172,7 +172,7 @@ void RenderWindow::init()
 
     // AI movement parametres
     npc_x = -1.0f;
-    npc_h = 0.001f;
+    npc_h = 0.1f;
     npc_swap = true;
 
     glBindVertexArray(0);
@@ -252,15 +252,16 @@ void RenderWindow::render()
     if (npc) {
         float npc_y = 0.0f;
         float npc_z;
+        long secElapsed = mTimeStart.nsecsElapsed() / 1000000;
         if (npc_swap)
         {
-            npc_x += npc_h;
+            npc_x += npc_h / secElapsed;
             if (npc_x >= 1.0f)
                 npc_swap = false;
         }
         else
         {
-            npc_x -= npc_h;
+            npc_x -= npc_h / secElapsed;
             if (npc_x <= -1.0f)
                 npc_swap = true;
         }
@@ -269,7 +270,10 @@ void RenderWindow::render()
             npc_z = pow(npc_x, 2);
         else
             npc_z = -npc_x;
+
         npc->move(npc_x, npc_y, npc_z);
+        mLogger->logText(std::to_string(secElapsed));
+        mLogger->logText(std::to_string(npc_x) + ", " + std::to_string(npc_y) + ", " + std::to_string(npc_z));
     }
 }
 

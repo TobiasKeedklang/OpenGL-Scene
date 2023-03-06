@@ -207,10 +207,10 @@ void tObject::draw()
 
 void tObject::place(float dx, float dy, float dz, float dr)
 {
-    mx = dx;
-    my = dy;
-    mz = dz;
-    mr = dr;
+    mx += dx;
+    my += dy;
+    mz += dz;
+    mr += dr;
 
 //    qDebug() << "move";
     mMatrix.translate(dx, dy, dz);
