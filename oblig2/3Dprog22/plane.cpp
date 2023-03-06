@@ -2,7 +2,14 @@
 
 Plane::Plane()
 {
+    Vertex v0(-15, 0, 15, 0, 0, 1);     mVertices.push_back(v0);
+    Vertex v1(-15, 0, -15, 0, 0, 1);    mVertices.push_back(v1);
+    Vertex v2(15, 0, 15, 0, 0, 1);      mVertices.push_back(v2);
+    mVertices.push_back(v0);
+    mVertices.push_back(v1);
+    Vertex v3(15, 0, -15, 0, 0, 1);     mVertices.push_back(v3);
 
+    mMatrix.setToIdentity();
 }
 
 Plane::Plane(std::string filnavn) : VisualObject()
@@ -92,22 +99,7 @@ void Plane::draw()
 {
     glBindVertexArray(mVAO);
     glUniformMatrix4fv(mMatrixUniform, 1, GL_FALSE, mMatrix.constData());
-
-    switch (renderValue)
-    {
-    case 0:
-        // Visible
-        glDrawArrays(GL_TRIANGLES, 0, mVertices.size());
-        break;
-    case 1:
-        // Invisible
-        glDrawArrays(GL_POINTS, 0, mVertices.size());
-        break;
-    default:
-        break;
-    }
-
-
+    glDrawArrays(GL_TRIANGLES, 0, mVertices.size());
 }
 
 void Plane::place(float dx, float dy, float dz, float dr)

@@ -10,7 +10,6 @@ public:
     tObject();
     tObject(float dx, float dy, float dz, float dr);
     tObject(std::string filnavn);
-    tObject(std::string filnavn, float xpos, float ypos, float zpos, float size);
     ~tObject() override;
 
     void writeFile(std::string filnavn);

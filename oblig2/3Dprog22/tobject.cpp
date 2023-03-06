@@ -54,58 +54,6 @@ tObject::tObject(std::string filnavn) : VisualObject()
    mMatrix.setToIdentity();
 }
 
-tObject::tObject(std::string filnavn, float xpos, float ypos, float zpos, float size) : VisualObject()
-{
-    float x = size; float y = size; float z = size;
-    float xneg = -x; float yneg = -y; float zneg = -z;
-    x += xpos; y += ypos; z += zpos;
-    xneg += xpos; yneg += ypos; zneg += zpos;
-
-
-    Vertex v0{xneg, yneg, zneg, 1,0,0};     mVertices.push_back(v0);
-    Vertex v1{xneg, y, z, 1,0,0};           mVertices.push_back(v1);
-    Vertex v2{x, y, zneg, 1,0,0};           mVertices.push_back(v2);
-    Vertex v3{xneg, yneg, zneg, 1,0,0};     mVertices.push_back(v3);
-    Vertex v4{xneg, y, zneg, 1,0,0};        mVertices.push_back(v4);
-    Vertex v5{x, yneg, z, 1,0,0};           mVertices.push_back(v5);
-    Vertex v6{xneg, yneg, zneg, 1,0,0};     mVertices.push_back(v6);
-    Vertex v7{xneg, yneg, zneg, 1,0,0};     mVertices.push_back(v7);
-    Vertex v8{x, yneg, zneg, 1,0,0};        mVertices.push_back(v8);
-    Vertex v9{x, y, zneg, 1,0,0};           mVertices.push_back(v9);
-    Vertex v10{x, yneg, zneg, 1,0,0};       mVertices.push_back(v10);
-    Vertex v11{xneg, yneg, zneg, 1,0,0};    mVertices.push_back(v11);
-    Vertex v12{xneg, yneg, zneg, 1,0,0};    mVertices.push_back(v12);
-    Vertex v13{xneg, y, z, 1,0,0};          mVertices.push_back(v13);
-    Vertex v14{xneg, y, zneg, 1,0,0};       mVertices.push_back(v14);
-    Vertex v15{x, yneg, z, 1,0,0};          mVertices.push_back(v15);
-    Vertex v16{xneg, yneg, z, 1,0,0};       mVertices.push_back(v16);
-    Vertex v17{xneg, yneg, zneg, 1,0,0};    mVertices.push_back(v17);
-    Vertex v18{xneg, y, z, 1,0,0};          mVertices.push_back(v18);
-    Vertex v19{xneg, yneg, z, 1,0,0};       mVertices.push_back(v19);
-    Vertex v20{x, yneg, z, 1,0,0};          mVertices.push_back(v20);
-    Vertex v21{x, y, z, 1,0,0};             mVertices.push_back(v21);
-    Vertex v22{x, yneg, zneg, 1,0,0};       mVertices.push_back(v22);
-    Vertex v23{x, y, zneg, 1,0,0};          mVertices.push_back(v23);
-    Vertex v24{x, yneg, zneg, 1,0,0};       mVertices.push_back(v24);
-    Vertex v25{x, y, z, 1,0,0};             mVertices.push_back(v25);
-    Vertex v26{x, yneg, z, 1,0,0};          mVertices.push_back(v26);
-    Vertex v27{x, y, z, 1,0,0};             mVertices.push_back(v27);
-    Vertex v28{x, y, zneg, 1,0,0};          mVertices.push_back(v28);
-    Vertex v29{xneg, y, zneg, 1,0,0};       mVertices.push_back(v29);
-    Vertex v30{x, y, z, 1,0,0};             mVertices.push_back(v30);
-    Vertex v31{xneg, y, zneg, 1,0,0};       mVertices.push_back(v31);
-    Vertex v32{xneg, y, z, 1,0,0};          mVertices.push_back(v32);
-    Vertex v33{x, y, z, 1,0,0};             mVertices.push_back(v33);
-    Vertex v34{xneg, y, z, 1,0,0};          mVertices.push_back(v34);
-    Vertex v35{x, yneg, z, 1,0,0};          mVertices.push_back(v35);
-
-
-
-   writeFile(filnavn);
-   readFile(filnavn);
-   mMatrix.setToIdentity();
-}
-
 tObject::~tObject()
 {
 
