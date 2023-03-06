@@ -410,13 +410,13 @@ void RenderWindow::keyPressEvent(QKeyEvent *event)
     {
         if (!keyPressed)
         {
-            door->rotateY(90);
+            door->rotate(90);
             door->setPosition3D(QVector3D{-12.0f, 0.0f, 2.0f});
             keyPressed = true;
         }
         else
         {
-            door->rotateY(270);
+            door->rotate(270);
             door->setPosition3D(QVector3D{0.0f, 0.0f, 0.0f});
             keyPressed = false;
         }

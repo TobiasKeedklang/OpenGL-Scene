@@ -26,9 +26,7 @@ public:
     void setRenderStyle(int input);
     bool mRotate;
 
-    void rotateX(GLfloat degrees);
-    void rotateY(GLfloat degrees);
-    void rotateZ(GLfloat degrees);
+    void rotate(GLfloat degrees);
     void setPosition3D(QVector3D inPos);
 
 protected:

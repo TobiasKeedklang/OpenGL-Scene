@@ -48,53 +48,9 @@ tObject::tObject(float dx, float dy, float dz, float dr) : mx{0.0f}, my{0.0f}, m
     place(dx, dy, dz, dr);
 }
 
-tObject::tObject(std::string filnavn) : VisualObject()
-{
-   readFile(filnavn);
-   mMatrix.setToIdentity();
-}
-
 tObject::~tObject()
 {
 
-}
-
-void tObject::writeFile(std::string filnavn)
-{
-    std::ofstream ut;
-    ut.open(filnavn.c_str());
-
-    if (ut.is_open())
-    {
-
-        auto n = mVertices.size();
-        Vertex vertex;
-        ut << n << std::endl;
-        for (auto it=mVertices.begin(); it != mVertices.end(); it++)
-        {
-            //vertex = *it;
-            ut << *it << std::endl;
-        }
-        ut.close();
-    }
-}
-
-void tObject::readFile(std::string filnavn) {
-   std::ifstream inn;
-   inn.open(filnavn.c_str());
-
-
-   if (inn.is_open()) {
-       int n;
-       Vertex vertex;
-       inn >> n;
-       mVertices.reserve(n);
-       for (int i=0; i<n; i++) {
-            inn >> vertex;
-            mVertices.push_back(vertex);
-       }
-       inn.close();
-   }
 }
 
 void tObject::init(GLint matrixUniform)

@@ -9,11 +9,8 @@ class tObject : public VisualObject
 public:
     tObject();
     tObject(float dx, float dy, float dz, float dr);
-    tObject(std::string filnavn);
     ~tObject() override;
 
-    void writeFile(std::string filnavn);
-    void readFile(std::string filnavn);
     void init(GLint matrixUniform) override;
     void draw() override;
     void place(float dx, float dy, float dz, float dr);
