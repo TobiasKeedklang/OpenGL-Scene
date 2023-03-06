@@ -2,10 +2,19 @@
 
 InteractiveObject::InteractiveObject() : mx{0.0f}, my{0.0f}, mz{0.0f}
 {
-    //     v  x    y    z     r g b     mVertices
-    Vertex v0{0.0f,0.0f,0.0f, 1,0,0};   mVertices.push_back(v0);
-    Vertex v1{0.0f,1.0f,0.0f, 0,0,1};   mVertices.push_back(v1);
-    Vertex v2{0.5f,0.0f,0.0f, 1,0,0};   mVertices.push_back(v2);
+    //     v   x     y     z     r g b     mVertices
+    Vertex v0{ 0.0f, 0.0f, 0.0f, 1,0,0};   mVertices.push_back(v0);
+    Vertex v1{ 0.0f, 1.0f, 0.0f, 0,0,1};   mVertices.push_back(v1);
+    Vertex v2{ 0.5f, 0.0f, 0.0f, 1,0,0};   mVertices.push_back(v2);
+    mVertices.push_back(v0);
+    mVertices.push_back(v1);
+    Vertex v3{-0.5f, 0.0f, 0.0f, 1,0,0};   mVertices.push_back(v3);
+    mVertices.push_back(v0);
+    mVertices.push_back(v1);
+    Vertex v4{ 0.0f, 0.0f, 0.5f, 1,0,0};   mVertices.push_back(v4);
+    mVertices.push_back(v0);
+    mVertices.push_back(v1);
+    Vertex v5{ 0.0f, 0.0f,-0.5f, 1,0,0};   mVertices.push_back(v5);
 }
 
 InteractiveObject::~InteractiveObject()
