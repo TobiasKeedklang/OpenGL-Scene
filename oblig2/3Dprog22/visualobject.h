@@ -6,7 +6,11 @@
 #include <QVector3D>
 #include <QMatrix4x4>
 #include <vector>
+#include <QOpenGLTexture>
+#include "stb_image.h"
+#include "texture.h"
 #include "vertex.h"
+#include "logger.h"
 
 
 class VisualObject : public QOpenGLFunctions_4_1_Core
@@ -30,6 +34,8 @@ public:
     void setPosition3D(QVector3D inPos);
 
 protected:
+    class Logger *mLogger{nullptr};
+
     std::vector<Vertex> mVertices;
     GLuint mVAO{0};
     GLuint mVBO{0};

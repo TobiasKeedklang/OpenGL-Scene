@@ -156,19 +156,26 @@ void RenderWindow::init()
     //NB: hardcoded path to files! You have to change this if you change directories for the project.
     //Qt makes a build-folder besides the project folder. That is why we go down one directory
     // (out of the build-folder) and then up into the project folder.
-    mShaderProgram = new Shader("../3Dprog22/plainshader.vert", "../3Dprog22/plainshader.frag");
+    mShaderProgram[0] = new Shader("../3Dprog22/plainshader.vert", "../3Dprog22/plainshader.frag");
+    //mShaderProgram[1] = new Shader("../3Dprog22/textureshader.vert", "../3Dprog22/textureshader.frag");
+    // For me (Andreas) "../3Dprog22/[filename]" does not work
+    mShaderProgram[1] = new Shader("C:/Users/wohal/source/repos/OpenGL-Scene/oblig2/3Dprog22/textureshader.vert", "C:/Users/wohal/source/repos/OpenGL-Scene/oblig2/3Dprog22/textureshader.frag");
 
     // Flere matriser her! skal legges inn i kameraklasse
-    mPmatrixUniform = glGetUniformLocation( mShaderProgram->getProgram(), "pmatrix");
-    mVmatrixUniform = glGetUniformLocation( mShaderProgram->getProgram(), "vmatrix");
-    mMatrixUniform = glGetUniformLocation( mShaderProgram->getProgram(), "matrix");
-    mCamera.init(mPmatrixUniform, mVmatrixUniform);
+    setupPlainShader(0);
+    setupTextureShader(1);
+
+    //crateTexture = new Texture("C:/Users/wohal/source/repos/OpenGL-Scene/oblig2/build-3Dprog22-Desktop_Qt_6_4_2_MinGW_64_bit-Debug/crate_texture.png");
+    crateTexture = new Texture("C:/Users/wohal/source/repos/OpenGL-Scene/oblig2/3Dprog22/dog.jpg");
+    //crateTexture = new Texture("../3Dprog22/dog.jpg");
+
+    mCamera.init(mPmatrixUniform0, mVmatrixUniform0);
 
     // Size of points
     glPointSize(0.1);
 
     for (auto it = mObjects.begin(); it != mObjects.end(); it++)
-        (*it)->init(mMatrixUniform);
+        (*it)->init(mMatrixUniform0);
 
     // AI movement parametres
     npc_x = -1.0f;
@@ -181,7 +188,7 @@ void RenderWindow::init()
 // Called each frame - doing the rendering!!!
 void RenderWindow::render()
 {
-    mCamera.init(mPmatrixUniform, mVmatrixUniform);
+    mCamera.init(mPmatrixUniform0, mVmatrixUniform0);
     mCamera.perspective(60, 4.0/3.0, 0.1, 1000.0);
 
     mTimeStart.restart(); //restart FPS clock
@@ -192,24 +199,34 @@ void RenderWindow::render()
     //clear the screen for each redraw
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    //what shader to use
-    glUseProgram(mShaderProgram->getProgram() );
-
-    //moves camera
-//    mVmatrix->translate(0, 0, 5);
+    // What shader to use (plainshader)
+    glUseProgram(mShaderProgram[0]->getProgram() );
+    //send data to shaders
+    glUniformMatrix4fv(mVmatrixUniform0, 1, GL_TRUE, mCamera.mVmatrix.constData());
+    glUniformMatrix4fv(mPmatrixUniform0, 1, GL_TRUE, mCamera.mPmatrix.constData());
 
     //mCamera.lookAt(QVector3D{6.0f, 2.5f, 6.0f}, QVector3D{0.0f, 0.0f, 0.0f}, QVector3D{0.0f, 1.0f, 0.0f});
     mCamera.lookAt(cameraEye, cameraAt, cameraUp);
     mCamera.update();
 
-    //the actual draw call(s)
+    // Draws all objects using plain shading
     for (auto it = mObjects.begin(); it != mObjects.end(); it++)
         (*it)->draw();
+
+    // What shader to use (textureshader)
+    glUseProgram(mShaderProgram[1]->getProgram());
+    glUniformMatrix4fv(mVmatrixUniform1, 1, GL_TRUE, mCamera.mVmatrix.constData());
+    glUniformMatrix4fv(mPmatrixUniform1, 1, GL_TRUE, mCamera.mPmatrix.constData());
+    glUniform1i(mTextureUniform, 0);
+    crateTexture->UseTexture();
+    mCamera.update();
+
+    house->draw();
 
     // Get the matrixUniform location from the shader
     // This has to match the "matrix" variable name in the vertex shader
     // The uniform is used in the render() function to send the model matrix to the shader
-    mMatrixUniform = glGetUniformLocation( mShaderProgram->getProgram(), "matrix" );
+    mMatrixUniform0 = glGetUniformLocation( mShaderProgram[0]->getProgram(), "matrix" );
 
     //Calculate framerate before
     // checkForGLerrors() because that call takes a long time
@@ -237,11 +254,11 @@ void RenderWindow::render()
         {
             float distance = trophies[i]->getPosition().distanceToPoint(mia->getPosition());
             //float distance = mia->getPosition().distanceToPoint(trophies[i]->getPosition());
-            mLogger->logText("Object " + std::to_string(i) + ": " + std::to_string(distance));
+            //mLogger->logText("Object " + std::to_string(i) + ": " + std::to_string(distance));
 
             if (distance < mia->getRadius() + trophies[i]->getRadius())
             {
-                mLogger->logText("Collisions!!!");
+                //mLogger->logText("Collisions!!!");
                 trophies[i]->setRenderStyle(1);
             }
         }
@@ -272,8 +289,8 @@ void RenderWindow::render()
             npc_z = -npc_x;
 
         npc->move(npc_x, npc_y, npc_z);
-        mLogger->logText(std::to_string(secElapsed));
-        mLogger->logText(std::to_string(npc_x) + ", " + std::to_string(npc_y) + ", " + std::to_string(npc_z));
+        //mLogger->logText(std::to_string(secElapsed));
+        //mLogger->logText(std::to_string(npc_x) + ", " + std::to_string(npc_y) + ", " + std::to_string(npc_z));
     }
 }
 
@@ -390,6 +407,21 @@ void RenderWindow::startOpenGLDebugger()
     }
 }
 
+void RenderWindow::setupPlainShader(int shaderIndex)
+{
+    mPmatrixUniform0 = glGetUniformLocation( mShaderProgram[shaderIndex]->getProgram(), "pmatrix");
+    mVmatrixUniform0 = glGetUniformLocation( mShaderProgram[shaderIndex]->getProgram(), "vmatrix");
+    mMatrixUniform0 = glGetUniformLocation( mShaderProgram[shaderIndex]->getProgram(), "matrix");
+}
+
+void RenderWindow::setupTextureShader(int shaderIndex)
+{
+    mPmatrixUniform1 = glGetUniformLocation( mShaderProgram[shaderIndex]->getProgram(), "pmatrix");
+    mVmatrixUniform1 = glGetUniformLocation( mShaderProgram[shaderIndex]->getProgram(), "vmatrix");
+    mMatrixUniform1 = glGetUniformLocation( mShaderProgram[shaderIndex]->getProgram(), "matrix");
+    mTextureUniform = glGetUniformLocation( mShaderProgram[shaderIndex]->getProgram(), "textureSampler");
+}
+
 //Event sent from Qt when program receives a keyPress
 // NB - see renderwindow.h for signatures on keyRelease and mouse input
 void RenderWindow::keyPressEvent(QKeyEvent *event)
@@ -451,3 +483,4 @@ void RenderWindow::keyReleaseEvent(QKeyEvent *event)
     if (event->key() == Qt::Key_W) controller.moveUp = false;
     if (event->key() == Qt::Key_S) controller.moveDown = false;
 }
+

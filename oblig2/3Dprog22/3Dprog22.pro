@@ -18,6 +18,8 @@ SOURCES += main.cpp \
     plane.cpp \
     renderwindow.cpp \
     shader.cpp \
+    stb_image.cpp \
+    texture.cpp \
     tobject.cpp \
     vertex.cpp \
     visualobject.cpp
@@ -36,6 +38,8 @@ HEADERS += \
     plane.h \
     renderwindow.h \
     shader.h \
+    stb_image.h \
+    texture.h \
     tobject.h \
     vertex.h \
     visualobject.h
@@ -45,4 +49,6 @@ FORMS += \
 
 DISTFILES += \
     plainshader.frag \
-    plainshader.vert
+    plainshader.vert \
+    textureshader.frag \
+    textureshader.vert

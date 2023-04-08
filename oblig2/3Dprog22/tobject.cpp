@@ -105,8 +105,6 @@ void tObject::draw()
     default:
         break;
     }
-
-
 }
 
 void tObject::place(float dx, float dy, float dz, float dr)

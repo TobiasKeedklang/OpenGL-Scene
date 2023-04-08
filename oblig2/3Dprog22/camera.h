@@ -11,8 +11,6 @@ private:
    GLint  mPmatrixUniform;        //OpenGL reference to the Uniform in the shader program
    GLint  mVmatrixUniform;        //OpenGL reference to the Uniform in the shader program
    QVector3D mEye;
-   QMatrix4x4 mPmatrix{};         // denne,
-   QMatrix4x4 mVmatrix{};         // og denne, skal legges inn i kameraklasse
 public:
    Camera();
    ~Camera() { }
@@ -20,6 +18,9 @@ public:
    void perspective(int degrees, double aspect, double nearplane, double farplane);
    void lookAt(const QVector3D& eye, const QVector3D& at, const QVector3D& up);
    void update();
+
+   QMatrix4x4 mPmatrix{};         // Projection matrix
+   QMatrix4x4 mVmatrix{};         // View matrix
 };
 
 #endif // CAMERA_H
