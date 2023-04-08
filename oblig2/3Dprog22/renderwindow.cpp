@@ -157,17 +157,18 @@ void RenderWindow::init()
     //Qt makes a build-folder besides the project folder. That is why we go down one directory
     // (out of the build-folder) and then up into the project folder.
     mShaderProgram[0] = new Shader("../3Dprog22/plainshader.vert", "../3Dprog22/plainshader.frag");
-    //mShaderProgram[1] = new Shader("../3Dprog22/textureshader.vert", "../3Dprog22/textureshader.frag");
     // For me (Andreas) "../3Dprog22/[filename]" does not work
+    //mShaderProgram[1] = new Shader("../3Dprog22/textureshader.vert", "../3Dprog22/textureshader.frag");
     mShaderProgram[1] = new Shader("C:/Users/wohal/source/repos/OpenGL-Scene/oblig2/3Dprog22/textureshader.vert", "C:/Users/wohal/source/repos/OpenGL-Scene/oblig2/3Dprog22/textureshader.frag");
 
-    // Flere matriser her! skal legges inn i kameraklasse
+    // Setups up different matrices for the different shaders
     setupPlainShader(0);
     setupTextureShader(1);
 
-    //crateTexture = new Texture("C:/Users/wohal/source/repos/OpenGL-Scene/oblig2/build-3Dprog22-Desktop_Qt_6_4_2_MinGW_64_bit-Debug/crate_texture.png");
-    crateTexture = new Texture("C:/Users/wohal/source/repos/OpenGL-Scene/oblig2/3Dprog22/dog.jpg");
-    //crateTexture = new Texture("../3Dprog22/dog.jpg");
+    // Initilizes texture
+    dogTexture = new Texture((char*)("C:/Users/wohal/source/repos/OpenGL-Scene/oblig2/3Dprog22/dog.jpg"));
+    //dogTexture = new Texture((char*)("../3Dprog22/dog.jpg"));
+    dogTexture->LoadTexture();
 
     mCamera.init(mPmatrixUniform0, mVmatrixUniform0);
 
@@ -200,7 +201,7 @@ void RenderWindow::render()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     // What shader to use (plainshader)
-    glUseProgram(mShaderProgram[0]->getProgram() );
+    glUseProgram(mShaderProgram[0]->getProgram());
     //send data to shaders
     glUniformMatrix4fv(mVmatrixUniform0, 1, GL_TRUE, mCamera.mVmatrix.constData());
     glUniformMatrix4fv(mPmatrixUniform0, 1, GL_TRUE, mCamera.mPmatrix.constData());
@@ -211,14 +212,19 @@ void RenderWindow::render()
 
     // Draws all objects using plain shading
     for (auto it = mObjects.begin(); it != mObjects.end(); it++)
+    {
+        if ((*it) == house) // Does not render house object with plainshader
+            it++;
         (*it)->draw();
+    }
 
     // What shader to use (textureshader)
     glUseProgram(mShaderProgram[1]->getProgram());
     glUniformMatrix4fv(mVmatrixUniform1, 1, GL_TRUE, mCamera.mVmatrix.constData());
     glUniformMatrix4fv(mPmatrixUniform1, 1, GL_TRUE, mCamera.mPmatrix.constData());
     glUniform1i(mTextureUniform, 0);
-    crateTexture->UseTexture();
+    dogTexture->UseTexture();
+
     mCamera.update();
 
     house->draw();
@@ -226,7 +232,7 @@ void RenderWindow::render()
     // Get the matrixUniform location from the shader
     // This has to match the "matrix" variable name in the vertex shader
     // The uniform is used in the render() function to send the model matrix to the shader
-    mMatrixUniform0 = glGetUniformLocation( mShaderProgram[0]->getProgram(), "matrix" );
+    //mMatrixUniform0 = glGetUniformLocation( mShaderProgram[0]->getProgram(), "matrix" );
 
     //Calculate framerate before
     // checkForGLerrors() because that call takes a long time

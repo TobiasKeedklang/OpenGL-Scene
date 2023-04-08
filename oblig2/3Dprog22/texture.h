@@ -19,6 +19,8 @@ private:
     GLuint textureID;
     int width, height, bitDepth;
     char* fileLocation;
+
+    class Logger *mLogger{nullptr};
 };
 
 #endif // TEXTURE_H

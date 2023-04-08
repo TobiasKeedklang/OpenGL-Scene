@@ -53,7 +53,7 @@ private:
     Camera mCamera;
     Controller controller;
 
-    Texture* crateTexture;
+    Texture* dogTexture;
 
     void init();            //initialize things we need before rendering
 

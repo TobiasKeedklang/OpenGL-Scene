@@ -1,5 +1,7 @@
 #include "texture.h"
 #include <iostream>
+#include <string>
+#include "logger.h"
 
 Texture::Texture()
 {
@@ -38,7 +40,10 @@ void Texture::ClearTexture()
 
 void Texture::LoadTexture()
 {
+    mLogger = Logger::getInstance();
     initializeOpenGLFunctions();
+
+    //const char* file = fileLocation.c_str;
     unsigned char* texData = stbi_load(fileLocation, &width, &height, &bitDepth, 0);
     std::cout << fileLocation << std::endl;
     glGenTextures(1, &textureID);
@@ -55,11 +60,12 @@ void Texture::LoadTexture()
         // ... then load the texture...
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, texData);
         glGenerateMipmap(GL_TEXTURE_2D);
+        mLogger->logText("Don't worry it works ;)");
     }
     else
     {
         // ... otherwise something went wrong and we need to report it.
-        std::cout << "AHHH THE TEXTURE FILE IS FUCKED" << std::endl;
+        mLogger->logText("AHHHHH TEXTURE IS FUCKED!!!!", LogType::REALERROR);
     }
     stbi_image_free(texData);
 }
