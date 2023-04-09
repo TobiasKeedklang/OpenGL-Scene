@@ -92,7 +92,9 @@ RenderWindow::RenderWindow(const QSurfaceFormat &format, MainWindow *mainWindow)
     }
 
     cameraEye = QVector3D{6.0f, 2.5f, 6.0f};
+    //cameraEye = QVector3D{-7.0f, 2.5f, 6.0f};
     cameraAt = QVector3D{0.0f, 0.0f, 0.0f};
+    //cameraAt = QVector3D{-7.0f, 0.0f, -5.0f};
     cameraUp = QVector3D{0.0f, 1.0f, 0.0f};
 }
 

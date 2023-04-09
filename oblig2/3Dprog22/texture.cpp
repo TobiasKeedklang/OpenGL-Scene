@@ -43,6 +43,9 @@ void Texture::LoadTexture()
     mLogger = Logger::getInstance();
     initializeOpenGLFunctions();
 
+    // Flips image
+    stbi_set_flip_vertically_on_load(true);
+
     //const char* file = fileLocation.c_str;
     unsigned char* texData = stbi_load(fileLocation, &width, &height, &bitDepth, 0);
     std::cout << fileLocation << std::endl;
@@ -60,12 +63,12 @@ void Texture::LoadTexture()
         // ... then load the texture...
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, texData);
         glGenerateMipmap(GL_TEXTURE_2D);
-        mLogger->logText("Don't worry it works ;)");
+        mLogger->logText("Succesfully loaded texture image");
     }
     else
     {
         // ... otherwise something went wrong and we need to report it.
-        mLogger->logText("AHHHHH TEXTURE IS FUCKED!!!!", LogType::REALERROR);
+        mLogger->logText("Could not load texture image", LogType::REALERROR);
     }
     stbi_image_free(texData);
 }
