@@ -50,6 +50,7 @@ private:
     VisualObject* curve;
     VisualObject* line;
     VisualObject* npc;
+    VisualObject* heightMap;
     Camera mCamera;
     Controller controller;
 

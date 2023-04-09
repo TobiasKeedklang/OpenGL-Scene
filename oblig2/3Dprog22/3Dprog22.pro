@@ -9,6 +9,7 @@ SOURCES += main.cpp \
     camera.cpp \
     curve.cpp \
     door.cpp \
+    heightmap.cpp \
     house.cpp \
     interactiveobject.cpp \
     line.cpp \
@@ -29,6 +30,7 @@ HEADERS += \
     controller.h \
     curve.h \
     door.h \
+    heightmap.h \
     house.h \
     interactiveobject.h \
     line.h \

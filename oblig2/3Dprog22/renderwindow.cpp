@@ -21,6 +21,7 @@
 #include "plane.h"
 #include "house.h"
 #include "door.h"
+#include "heightmap.h"
 
 RenderWindow::RenderWindow(const QSurfaceFormat &format, MainWindow *mainWindow)
     : mContext(nullptr), mInitialized(false), mMainWindow(mainWindow)
@@ -55,8 +56,8 @@ RenderWindow::RenderWindow(const QSurfaceFormat &format, MainWindow *mainWindow)
     mia = new InteractiveObject;
     mObjects.push_back(mia);
 
-    plane = new Plane("plane.txt");
-    mObjects.push_back(plane);
+    //plane = new Plane("plane.txt");
+    //mObjects.push_back(plane);
 
     house = new House;
     mObjects.push_back(house);
@@ -74,6 +75,12 @@ RenderWindow::RenderWindow(const QSurfaceFormat &format, MainWindow *mainWindow)
     npc = new NPC;
     mObjects.push_back(npc);
     npc_Curve = false;
+
+    heightMap = new HeightMap((char*)("../3Dprog22/heigtmap.png"));
+    //heightMap = new HeightMap((char*)("C:/Users/wohal/source/repos/OpenGL-Scene/oblig2/3Dprog22/heightmap.png"));
+    heightMap->setPosition3D(QVector3D{0.0f, -150.0f,0.0f});
+    mObjects.push_back(heightMap);
+
 
     // Trophies: tObject(x, y, z, radius)
     trophies.push_back(new tObject(0.5f, 0.0f, -0.5f, 0.2));
@@ -160,16 +167,16 @@ void RenderWindow::init()
     // (out of the build-folder) and then up into the project folder.
     mShaderProgram[0] = new Shader("../3Dprog22/plainshader.vert", "../3Dprog22/plainshader.frag");
     // For me (Andreas) "../3Dprog22/[filename]" does not work
-    //mShaderProgram[1] = new Shader("../3Dprog22/textureshader.vert", "../3Dprog22/textureshader.frag");
-    mShaderProgram[1] = new Shader("C:/Users/wohal/source/repos/OpenGL-Scene/oblig2/3Dprog22/textureshader.vert", "C:/Users/wohal/source/repos/OpenGL-Scene/oblig2/3Dprog22/textureshader.frag");
+    mShaderProgram[1] = new Shader("../3Dprog22/textureshader.vert", "../3Dprog22/textureshader.frag");
+    //mShaderProgram[1] = new Shader("C:/Users/wohal/source/repos/OpenGL-Scene/oblig2/3Dprog22/textureshader.vert", "C:/Users/wohal/source/repos/OpenGL-Scene/oblig2/3Dprog22/textureshader.frag");
 
     // Setups up different matrices for the different shaders
     setupPlainShader(0);
     setupTextureShader(1);
 
     // Initilizes texture
-    dogTexture = new Texture((char*)("C:/Users/wohal/source/repos/OpenGL-Scene/oblig2/3Dprog22/dog.jpg"));
-    //dogTexture = new Texture((char*)("../3Dprog22/dog.jpg"));
+    //dogTexture = new Texture((char*)("C:/Users/wohal/source/repos/OpenGL-Scene/oblig2/3Dprog22/dog.jpg"));
+    dogTexture = new Texture((char*)("../3Dprog22/dog.jpg"));
     dogTexture->LoadTexture();
 
     mCamera.init(mPmatrixUniform0, mVmatrixUniform0);
