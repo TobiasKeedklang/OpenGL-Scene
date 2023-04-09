@@ -2,9 +2,9 @@
 
 NPC::NPC() : mx{0.0f}, my{0.0f}, mz{0.0f}
 {
-    Vertex v0{0.0f, 0.0f, 0.0f, 1,0,0, 0.0f, 0.0f}; mVertices.push_back(v0);
-    Vertex v1{0.0f, 0.5f, 0.0f, 1,0,0, 0.0f, 0.0f}; mVertices.push_back(v1);
-    Vertex v2{0.5f, 0.0f, 0.0f, 0,1,0, 0.0f, 0.0f}; mVertices.push_back(v2);
+    Vertex v0{0.0f, 0.0f, 0.0f, 1,0,0}; mVertices.push_back(v0);
+    Vertex v1{0.0f, 0.5f, 0.0f, 1,0,0}; mVertices.push_back(v1);
+    Vertex v2{0.5f, 0.0f, 0.0f, 0,1,0}; mVertices.push_back(v2);
 }
 
 NPC::~NPC()
@@ -42,6 +42,8 @@ void NPC::init(GLint matrixUniform)
                           sizeof(Vertex),
                           reinterpret_cast<GLvoid*>(3 * sizeof(GLfloat)));
     glEnableVertexAttribArray(1);
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), reinterpret_cast<GLvoid*>(6 * sizeof(GLfloat)));
+    glEnableVertexAttribArray(2);
 
     glBindVertexArray(0);
 }

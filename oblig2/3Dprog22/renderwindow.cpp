@@ -213,7 +213,7 @@ void RenderWindow::render()
     // Draws all objects using plain shading
     for (auto it = mObjects.begin(); it != mObjects.end(); it++)
     {
-        if ((*it) == house) // Does not render house object with plainshader
+        if ((*it) == door) // Does not render house object with plainshader
             it++;
         (*it)->draw();
     }
@@ -227,7 +227,7 @@ void RenderWindow::render()
 
     mCamera.update();
 
-    house->draw();
+    door->draw();
 
     // Get the matrixUniform location from the shader
     // This has to match the "matrix" variable name in the vertex shader
