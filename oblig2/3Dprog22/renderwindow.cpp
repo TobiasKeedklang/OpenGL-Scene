@@ -173,12 +173,21 @@ void RenderWindow::init()
     // For me (Andreas) "../3Dprog22/[filename]" does not work
     mShaderProgram[1] = new Shader("../3Dprog22/textureshader.vert", "../3Dprog22/textureshader.frag");
     //mShaderProgram[1] = new Shader("C:/Users/wohal/source/repos/OpenGL-Scene/oblig2/3Dprog22/textureshader.vert", "C:/Users/wohal/source/repos/OpenGL-Scene/oblig2/3Dprog22/textureshader.frag");
+<<<<<<< Updated upstream
 //    mShaderProgram[2] = new Shader("../3Dprog22/phongshader.vert", "../3Dprog22/phongshader.frag");
+=======
+    mShaderProgram[2] = new Shader("../3Dprog22/phongshader.vert", "../3Dprog22/phongshader.frag");
+    mLogger->logText("Phong shader program id: " + std::to_string(mShaderProgram[2]->getProgram()) );
+>>>>>>> Stashed changes
 
     // Setups up different matrices for the different shaders
     setupPlainShader(0);
     setupTextureShader(1);
+<<<<<<< Updated upstream
 //    setupPhongShader(2);
+=======
+    setupPhongShader(2);
+>>>>>>> Stashed changes
 
     // Initilizes texture
     //dogTexture = new Texture((char*)("C:/Users/wohal/source/repos/OpenGL-Scene/oblig2/3Dprog22/dog.jpg"));
@@ -223,6 +232,20 @@ void RenderWindow::render()
     glUniformMatrix4fv(mVmatrixUniform0, 1, GL_TRUE, mCamera.mVmatrix.constData());
     glUniformMatrix4fv(mPmatrixUniform0, 1, GL_TRUE, mCamera.mPmatrix.constData());
 
+    // What shader to use (phongshader)
+    glUseProgram(mShaderProgram[2]->getProgram());
+    //send data to shaders
+    glUniformMatrix4fv(mVmatrixUniform2, 1, GL_TRUE, mCamera.mVmatrix.constData());
+    glUniformMatrix4fv(mPmatrixUniform2, 1, GL_TRUE, mCamera.mPmatrix.constData());
+    for (auto it = mObjects.begin(); it != mObjects.end(); it++)
+        glUniformMatrix4fv(mMatrixUniform2, 1, GL_TRUE, (*it)->mMatrix.constData());
+    checkForGLerrors();
+    // Additional parameters for light shader
+    glUniform3f(mLightPositionUniform,
+                light->mMatrix.getPosition().x,
+                light->mMatrix.getPosition().y,
+                light->mMatrix.getPosition().z);
+
     //mCamera.lookAt(QVector3D{6.0f, 2.5f, 6.0f}, QVector3D{0.0f, 0.0f, 0.0f}, QVector3D{0.0f, 1.0f, 0.0f});
     mCamera.lookAt(cameraEye, cameraAt, cameraUp);
     mCamera.update();
@@ -235,11 +258,11 @@ void RenderWindow::render()
         (*it)->draw();
     }
 
-    // What shader to use (textureshader)
+    // What shader to use (textureshader & light shader)
     glUseProgram(mShaderProgram[1]->getProgram());
     glUniformMatrix4fv(mVmatrixUniform1, 1, GL_TRUE, mCamera.mVmatrix.constData());
     glUniformMatrix4fv(mPmatrixUniform1, 1, GL_TRUE, mCamera.mPmatrix.constData());
-    glUniform1i(mTextureUniform, 0);
+    glUniform1i(mTextureUniform1, 0);
     dogTexture->UseTexture();
 
     mCamera.update();
@@ -462,7 +485,24 @@ void RenderWindow::setupTextureShader(int shaderIndex)
     mPmatrixUniform1 = glGetUniformLocation( mShaderProgram[shaderIndex]->getProgram(), "pmatrix");
     mVmatrixUniform1 = glGetUniformLocation( mShaderProgram[shaderIndex]->getProgram(), "vmatrix");
     mMatrixUniform1 = glGetUniformLocation( mShaderProgram[shaderIndex]->getProgram(), "matrix");
-    mTextureUniform = glGetUniformLocation( mShaderProgram[shaderIndex]->getProgram(), "textureSampler");
+    mTextureUniform1 = glGetUniformLocation( mShaderProgram[shaderIndex]->getProgram(), "textureSampler");
+}
+
+void RenderWindow::setupPhongShader(int shaderIndex)
+{
+    mMatrixUniform2 = glGetUniformLocation( mShaderProgram[shaderIndex]->getProgram(), "matrix" );
+    mVmatrixUniform2 = glGetUniformLocation( mShaderProgram[shaderIndex]->getProgram(), "vmatrix" );
+    mPmatrixUniform2 = glGetUniformLocation( mShaderProgram[shaderIndex]->getProgram(), "pmatrix" );
+
+    mLightColorUniform = glGetUniformLocation( mShaderProgram[shaderIndex]->getProgram(), "lightColor" );
+    mObjectColorUniform = glGetUniformLocation( mShaderProgram[shaderIndex]->getProgram(), "objectColor" );
+    mAmbientLightStrengthUniform = glGetUniformLocation( mShaderProgram[shaderIndex]->getProgram(), "ambientStrength" );
+    mLightPositionUniform = glGetUniformLocation( mShaderProgram[shaderIndex]->getProgram(), "lightPosition" );
+    mSpecularStrengthUniform = glGetUniformLocation( mShaderProgram[shaderIndex]->getProgram(), "specularStrength" );
+    mSpecularExponentUniform = glGetUniformLocation( mShaderProgram[shaderIndex]->getProgram(), "specularExponent" );
+    mLightPowerUniform = glGetUniformLocation( mShaderProgram[shaderIndex]->getProgram(), "lightPower" );
+    mCameraPositionUniform = glGetUniformLocation( mShaderProgram[shaderIndex]->getProgram(), "cameraPosition" );
+    mTextureUniform2 = glGetUniformLocation(mShaderProgram[shaderIndex]->getProgram(), "textureSampler");
 }
 
 void RenderWindow::setupPhongShader(int shaderIndex)

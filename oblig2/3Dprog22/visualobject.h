@@ -33,6 +33,10 @@ public:
     void rotate(GLfloat degrees);
     void setPosition3D(QVector3D inPos);
 
+
+    QMatrix4x4 mMatrix;
+    QMatrix4x4 mPmatrix;
+    QMatrix4x4 mVmatrix;
 protected:
     class Logger *mLogger{nullptr};
 
@@ -42,10 +46,6 @@ protected:
     GLuint mVBO{0};
     GLuint mEAB{0}; //holds the indices (Element Array Buffer - EAB)
     GLint mMatrixUniform{0};
-
-    QMatrix4x4 mMatrix;
-    QMatrix4x4 mPmatrix;
-    QMatrix4x4 mVmatrix;
 
     // Velger å lagre posisjon, rotasjon og translasjon
     // I hver sin 4x4 matrise

@@ -1618,6 +1618,7 @@ release/light.o: ../3Dprog22/light.cpp ../3Dprog22/light.h \
 		../3Dprog22/stb_image.h \
 		../3Dprog22/texture.h \
 		../3Dprog22/vertex.h \
+<<<<<<< Updated upstream
 		../3Dprog22/logger.h \
 		../3Dprog22/renderwindow.h \
 		C:/Qt/6.4.2/mingw_64/include/QtGui/QWindow \
@@ -1638,6 +1639,9 @@ release/light.o: ../3Dprog22/light.cpp ../3Dprog22/light.h \
 		C:/Qt/6.4.2/mingw_64/include/QtCore/qelapsedtimer.h \
 		../3Dprog22/camera.h \
 		../3Dprog22/controller.h
+=======
+		../3Dprog22/logger.h
+>>>>>>> Stashed changes
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\light.o ..\3Dprog22\light.cpp
 
 release/line.o: ../3Dprog22/line.cpp ../3Dprog22/line.h \

@@ -48,6 +48,7 @@ private:
     VisualObject* house;
     VisualObject* light;
     VisualObject* door;
+    VisualObject* light;
     VisualObject* curve;
     VisualObject* line;
     VisualObject* npc;
@@ -108,7 +109,21 @@ private:
     GLint  mMatrixUniform1;
     GLint  mPmatrixUniform1;
     GLint  mVmatrixUniform1;
-    GLint  mTextureUniform;
+    GLint  mTextureUniform1;
+
+    void setupPhongShader(int shaderIndex);
+    GLint mMatrixUniform2;
+    GLint mPmatrixUniform2;
+    GLint mVmatrixUniform2;
+    GLint mLightColorUniform;
+    GLint mObjectColorUniform;
+    GLint mAmbientLightStrengthUniform;
+    GLint mLightPositionUniform;
+    GLint mSpecularStrengthUniform;
+    GLint mSpecularExponentUniform;
+    GLint mLightPowerUniform;
+    GLint mCameraPositionUniform;
+    GLint mTextureUniform2;
 
     void setupPhongShader(int shaderIndex);
     GLint mMatrixUniform2;
