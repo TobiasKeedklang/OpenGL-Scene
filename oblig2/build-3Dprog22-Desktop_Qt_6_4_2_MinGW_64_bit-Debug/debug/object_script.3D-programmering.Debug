@@ -2,8 +2,10 @@ debug/main.o
 debug/camera.o
 debug/curve.o
 debug/door.o
+debug/heightmap.o
 debug/house.o
 debug/interactiveobject.o
+debug/light.o
 debug/line.o
 debug/logger.o
 debug/mainwindow.o
@@ -11,6 +13,8 @@ debug/npc.o
 debug/plane.o
 debug/renderwindow.o
 debug/shader.o
+debug/stb_image.o
+debug/texture.o
 debug/tobject.o
 debug/vertex.o
 debug/visualobject.o

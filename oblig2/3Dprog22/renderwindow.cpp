@@ -11,6 +11,7 @@
 #include <string>
 
 #include "curve.h"
+#include "light.h"
 #include "line.h"
 #include "npc.h"
 #include "shader.h"
@@ -65,6 +66,9 @@ RenderWindow::RenderWindow(const QSurfaceFormat &format, MainWindow *mainWindow)
     door = new Door;
     mObjects.push_back(door);
     door->setPosition3D(QVector3D{0.0f, 0.0f, 0.0f});
+
+    light = new Light;
+    mObjects.push_back(light);
 
     curve = new Curve;
     mObjects.push_back(curve);
@@ -169,10 +173,12 @@ void RenderWindow::init()
     // For me (Andreas) "../3Dprog22/[filename]" does not work
     mShaderProgram[1] = new Shader("../3Dprog22/textureshader.vert", "../3Dprog22/textureshader.frag");
     //mShaderProgram[1] = new Shader("C:/Users/wohal/source/repos/OpenGL-Scene/oblig2/3Dprog22/textureshader.vert", "C:/Users/wohal/source/repos/OpenGL-Scene/oblig2/3Dprog22/textureshader.frag");
+//    mShaderProgram[2] = new Shader("../3Dprog22/phongshader.vert", "../3Dprog22/phongshader.frag");
 
     // Setups up different matrices for the different shaders
     setupPlainShader(0);
     setupTextureShader(1);
+//    setupPhongShader(2);
 
     // Initilizes texture
     //dogTexture = new Texture((char*)("C:/Users/wohal/source/repos/OpenGL-Scene/oblig2/3Dprog22/dog.jpg"));
@@ -185,7 +191,9 @@ void RenderWindow::init()
     glPointSize(0.1);
 
     for (auto it = mObjects.begin(); it != mObjects.end(); it++)
+    {
         (*it)->init(mMatrixUniform0);
+    }
 
     // AI movement parametres
     npc_x = -1.0f;
@@ -222,7 +230,7 @@ void RenderWindow::render()
     // Draws all objects using plain shading
     for (auto it = mObjects.begin(); it != mObjects.end(); it++)
     {
-        if ((*it) == door) // Does not render house object with plainshader
+        if ((*it) == door || (*it) == light) // Does not render house object with plainshader
             it++;
         (*it)->draw();
     }
@@ -237,6 +245,26 @@ void RenderWindow::render()
     mCamera.update();
 
     door->draw();
+
+//    glUniformMatrix4fv( mMatrixUniform0, 1, GL_TRUE, light->mMatrix.constData());
+//    light->draw();
+
+//    // Parametres for light shader
+//    glUseProgram(mShaderProgram[2]->getProgram());
+//    glUniformMatrix4fv( mVmatrixUniform2, 1, GL_TRUE, mCamera.mVmatrix.constData());
+//    glUniformMatrix4fv( mPmatrixUniform2, 1, GL_TRUE, mCamera.mVmatrix.constData());
+//    glUniformMatrix4fv( mMatrixUniform2, 1, GL_TRUE, light->mMatrix.constData());
+//    checkForGLerrors();
+
+//    glUniform3f(mLightPositionUniform,
+//                light->mMatrix.getPosition().x,
+//                light->mMatrix.getPosition().y,
+//                light->mMatrix.getPosition().z);
+//    glUniform3f(mCameraPositionUniform, mCamera->position().x, mCamera->position().y, mCamera->position().z);
+//    glUniform3f(mLightColorUniform, light->mLightColor.x, light->mLightColor.y, light->mLightColor.z);
+//    glUniform1f(mSpecularStrengthUniform, light->mSpecularStrenght);
+
+//    light->draw();
 
     // Get the matrixUniform location from the shader
     // This has to match the "matrix" variable name in the vertex shader
@@ -435,6 +463,19 @@ void RenderWindow::setupTextureShader(int shaderIndex)
     mVmatrixUniform1 = glGetUniformLocation( mShaderProgram[shaderIndex]->getProgram(), "vmatrix");
     mMatrixUniform1 = glGetUniformLocation( mShaderProgram[shaderIndex]->getProgram(), "matrix");
     mTextureUniform = glGetUniformLocation( mShaderProgram[shaderIndex]->getProgram(), "textureSampler");
+}
+
+void RenderWindow::setupPhongShader(int shaderIndex)
+{
+    mPmatrixUniform2 = glGetUniformLocation( mShaderProgram[shaderIndex]->getProgram(), "pmatrix");
+    mVmatrixUniform2 = glGetUniformLocation( mShaderProgram[shaderIndex]->getProgram(), "vmatrix");
+    mMatrixUniform2 = glGetUniformLocation( mShaderProgram[shaderIndex]->getProgram(), "matrix");
+
+    mLightColorUniform = glGetUniformLocation( mShaderProgram[shaderIndex]->getProgram(), "lightColor");
+    mObjectColorUniform = glGetUniformLocation( mShaderProgram[shaderIndex]->getProgram(), "objectColor");
+    mAmbientLightStrengthUniform = glGetUniformLocation( mShaderProgram[shaderIndex]->getProgram(), "ambientStrength");
+    mLightPositionUniform = glGetUniformLocation( mShaderProgram[shaderIndex]->getProgram(), "lightPosition");
+    mLightStrengthUniform = glGetUniformLocation( mShaderProgram[shaderIndex]->getProgram(), "lightStrength");
 }
 
 //Event sent from Qt when program receives a keyPress

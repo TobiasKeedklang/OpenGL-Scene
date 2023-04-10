@@ -37,8 +37,10 @@ protected:
     class Logger *mLogger{nullptr};
 
     std::vector<Vertex> mVertices;
+    std::vector<GLuint> mIndices;
     GLuint mVAO{0};
     GLuint mVBO{0};
+    GLuint mEAB{0}; //holds the indices (Element Array Buffer - EAB)
     GLint mMatrixUniform{0};
 
     QMatrix4x4 mMatrix;

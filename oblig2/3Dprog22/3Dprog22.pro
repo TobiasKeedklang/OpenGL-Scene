@@ -12,6 +12,7 @@ SOURCES += main.cpp \
     heightmap.cpp \
     house.cpp \
     interactiveobject.cpp \
+    light.cpp \
     line.cpp \
     logger.cpp \
     mainwindow.cpp \
@@ -33,6 +34,7 @@ HEADERS += \
     heightmap.h \
     house.h \
     interactiveobject.h \
+    light.h \
     line.h \
     logger.h \
     mainwindow.h \
@@ -50,6 +52,8 @@ FORMS += \
     mainwindow.ui
 
 DISTFILES += \
+    phongshader.frag \
+    phongshader.vert \
     plainshader.frag \
     plainshader.vert \
     textureshader.frag \
