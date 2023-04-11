@@ -75,6 +75,15 @@ RenderWindow::RenderWindow(const QSurfaceFormat &format, MainWindow *mainWindow)
     mObjects.push_back(npc);
     npc_Curve = false;
 
+<<<<<<< Updated upstream
+=======
+    //heightMap = new HeightMap((char*)("../3Dprog22/heigtmap.png"));
+    heightMap = new HeightMap((char*)("C:/Users/wohal/source/repos/OpenGL-Scene/oblig2/3Dprog22/heightmap.png"));
+    heightMap->setPosition3D(QVector3D{0.0f, 0.0f,0.0f});
+    mObjects.push_back(heightMap);
+
+
+>>>>>>> Stashed changes
     // Trophies: tObject(x, y, z, radius)
     trophies.push_back(new tObject(0.5f, 0.0f, -0.5f, 0.2));
     trophies.push_back(new tObject(4.5f, 0.0f, 2.3f, 0.2));
@@ -156,6 +165,7 @@ void RenderWindow::init()
     //NB: hardcoded path to files! You have to change this if you change directories for the project.
     //Qt makes a build-folder besides the project folder. That is why we go down one directory
     // (out of the build-folder) and then up into the project folder.
+<<<<<<< Updated upstream
     mShaderProgram = new Shader("../3Dprog22/plainshader.vert", "../3Dprog22/plainshader.frag");
 
     // Flere matriser her! skal legges inn i kameraklasse
@@ -163,6 +173,23 @@ void RenderWindow::init()
     mVmatrixUniform = glGetUniformLocation( mShaderProgram->getProgram(), "vmatrix");
     mMatrixUniform = glGetUniformLocation( mShaderProgram->getProgram(), "matrix");
     mCamera.init(mPmatrixUniform, mVmatrixUniform);
+=======
+    mShaderProgram[0] = new Shader("../3Dprog22/plainshader.vert", "../3Dprog22/plainshader.frag");
+    // For me (Andreas) "../3Dprog22/[filename]" does not work
+    //mShaderProgram[1] = new Shader("../3Dprog22/textureshader.vert", "../3Dprog22/textureshader.frag");
+    mShaderProgram[1] = new Shader("C:/Users/wohal/source/repos/OpenGL-Scene/oblig2/3Dprog22/textureshader.vert", "C:/Users/wohal/source/repos/OpenGL-Scene/oblig2/3Dprog22/textureshader.frag");
+
+    // Setups up different matrices for the different shaders
+    setupPlainShader(0);
+    setupTextureShader(1);
+
+    // Initilizes texture
+    dogTexture = new Texture((char*)("C:/Users/wohal/source/repos/OpenGL-Scene/oblig2/3Dprog22/dog.jpg"));
+    //dogTexture = new Texture((char*)("../3Dprog22/dog.jpg"));
+    dogTexture->LoadTexture();
+
+    mCamera.init(mPmatrixUniform0, mVmatrixUniform0);
+>>>>>>> Stashed changes
 
     // Size of points
     glPointSize(0.1);
@@ -227,10 +254,32 @@ void RenderWindow::render()
     //Movement
     if (mia)
     {
-        if (controller.moveLeft) mia->move(-0.1f, 0.0f, 0.0f);
-        if (controller.moveRight) mia->move(0.1f, 0.0f, 0.0f);
-        if (controller.moveUp) mia->move(0.0f, 0.0f, -0.1f);
-        if (controller.moveDown) mia->move(0.0f, 0.0f, 0.1f);
+        float playerHeight = 0.0f;
+        QVector2D playerPos = {mia->getPosition().x(), mia->getPosition().z()};
+        if (controller.moveLeft)
+        {
+            playerHeight = heightMap->getHeight(playerPos);
+            mLogger->logText("Player height" + std::to_string(playerHeight));
+            mia->move(-0.1f, playerHeight, 0.0f); // (-0.1f, 0.0f, 0.0f)
+        }
+        if (controller.moveRight)
+        {
+            playerHeight = heightMap->getHeight(playerPos);
+            mLogger->logText("Player height" + std::to_string(playerHeight));
+            mia->move(0.1f, playerHeight, 0.0f); // (0.1f, 0.0f, 0.0f)
+        }
+        if (controller.moveUp)
+        {
+            playerHeight = heightMap->getHeight(playerPos);
+            mLogger->logText("Player height" + std::to_string(playerHeight));
+            mia->move(0.0f, playerHeight, -0.1f); // (0.0f, 0.0f, -0.1f)
+        }
+        if (controller.moveDown)
+        {
+            playerHeight = heightMap->getHeight(playerPos);
+            mLogger->logText("Player height" + std::to_string(playerHeight));
+            mia->move(0.0f, playerHeight, 0.1f); // (0.0f, 0.0f, 0.1f)
+        }
 
         // Checks for collisions
         for (int i = 0; i < trophies.size(); i++)
@@ -245,7 +294,6 @@ void RenderWindow::render()
                 trophies[i]->setRenderStyle(1);
             }
         }
-
     }
 
     //AI movement

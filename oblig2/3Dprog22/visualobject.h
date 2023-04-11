@@ -23,6 +23,7 @@ public:
     virtual void move(float dt) {}
     virtual float getRadius() {}
     virtual QVector3D getPosition() {}
+    virtual float getHeight(QVector2D p) {}
     void setRenderStyle(int input);
     bool mRotate;
 
