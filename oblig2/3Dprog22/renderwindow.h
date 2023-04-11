@@ -47,6 +47,7 @@ private:
     VisualObject* plane;
     VisualObject* house;
     VisualObject* door;
+    class Light* light{nullptr};
     VisualObject* curve;
     VisualObject* line;
     VisualObject* npc;
@@ -107,7 +108,22 @@ private:
     GLint  mMatrixUniform1;
     GLint  mPmatrixUniform1;
     GLint  mVmatrixUniform1;
-    GLint  mTextureUniform;
+    GLint  mTextureUniform1;
+
+    void setupPhongShader(int shaderIndex);
+    GLint mMatrixUniform2;
+    GLint mPmatrixUniform2;
+    GLint mVmatrixUniform2;
+
+    GLint mLightColorUniform;
+    GLint mObjectColorUniform;
+    GLint mAmbientLightStrengthUniform;
+    GLint mLightPositionUniform;
+    GLint mCameraPositionUniform;
+    GLint mSpecularStrengthUniform;
+    GLint mSpecularExponentUniform;
+    GLint mLightPowerUniform;
+    GLint mTextureUniform2;
 
 protected:
     //The QWindow that we inherit from have these functions to capture
