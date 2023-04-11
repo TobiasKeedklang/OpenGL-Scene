@@ -78,7 +78,7 @@ RenderWindow::RenderWindow(const QSurfaceFormat &format, MainWindow *mainWindow)
 
     heightMap = new HeightMap((char*)("../3Dprog22/heigtmap.png"));
     //heightMap = new HeightMap((char*)("C:/Users/wohal/source/repos/OpenGL-Scene/oblig2/3Dprog22/heightmap.png"));
-    heightMap->setPosition3D(QVector3D{0.0f, -150.0f,0.0f});
+    heightMap->setPosition3D(QVector3D{0.0f, 0.0f,0.0f});
     mObjects.push_back(heightMap);
 
 
@@ -259,10 +259,32 @@ void RenderWindow::render()
     //Movement
     if (mia)
     {
-        if (controller.moveLeft) mia->move(-0.1f, 0.0f, 0.0f);
-        if (controller.moveRight) mia->move(0.1f, 0.0f, 0.0f);
-        if (controller.moveUp) mia->move(0.0f, 0.0f, -0.1f);
-        if (controller.moveDown) mia->move(0.0f, 0.0f, 0.1f);
+        float playerHeight = 0.0f;
+        QVector2D playerPos = {mia->getPosition().x(), mia->getPosition().z()};
+        if (controller.moveLeft)
+        {
+            playerHeight = heightMap->getHeight(playerPos);
+            mLogger->logText("Player height" + std::to_string(playerHeight));
+            mia->move(-0.1f, playerHeight, 0.0f); // (-0.1f, 0.0f, 0.0f)
+        }
+        if (controller.moveRight)
+        {
+            playerHeight = heightMap->getHeight(playerPos);
+            mLogger->logText("Player height" + std::to_string(playerHeight));
+            mia->move(0.1f, playerHeight, 0.0f); // (0.1f, 0.0f, 0.0f)
+        }
+        if (controller.moveUp)
+        {
+            playerHeight = heightMap->getHeight(playerPos);
+            mLogger->logText("Player height" + std::to_string(playerHeight));
+            mia->move(0.0f, playerHeight, -0.1f); // (0.0f, 0.0f, -0.1f)
+        }
+        if (controller.moveDown)
+        {
+            playerHeight = heightMap->getHeight(playerPos);
+            mLogger->logText("Player height" + std::to_string(playerHeight));
+            mia->move(0.0f, playerHeight, 0.1f); // (0.0f, 0.0f, 0.1f)
+        }
 
         // Checks for collisions
         for (int i = 0; i < trophies.size(); i++)
