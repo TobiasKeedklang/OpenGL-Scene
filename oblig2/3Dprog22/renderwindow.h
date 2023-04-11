@@ -101,24 +101,24 @@ private:
 
     void setupPlainShader(int shaderIndex);
     GLint  mMatrixUniform0;              //OpenGL reference to the Uniform in the shader program
-    GLint  mPmatrixUniform0;
-    GLint  mVmatrixUniform0;
+    GLint  mPmatrixUniform0{0};
+    GLint  mVmatrixUniform0{0};
 
     void setupTextureShader(int shaderIndex);
-    GLint  mMatrixUniform1;
-    GLint  mPmatrixUniform1;
-    GLint  mVmatrixUniform1;
-    GLint  mTextureUniform1;
+    GLint  mMatrixUniform1{};
+    GLint  mPmatrixUniform1{};
+    GLint  mVmatrixUniform1{};
+    GLint  mTextureUniform1{};
 
     void setupPhongShader(int shaderIndex);
-    GLint mMatrixUniform2;
-    GLint mPmatrixUniform2;
-    GLint mVmatrixUniform2;
+    GLint mMatrixUniform2{};
+    GLint mPmatrixUniform2{};
+    GLint mVmatrixUniform2{};
 
-    GLint mLightColorUniform;
-    GLint mObjectColorUniform;
-    GLint mAmbientLightStrengthUniform;
-    GLint mLightPositionUniform;
+    GLint mLightColorUniform{};
+    GLint mObjectColorUniform{};
+    GLint mAmbientLightStrengthUniform{};
+    GLint mLightPositionUniform{};
     GLint mCameraPositionUniform;
     GLint mSpecularStrengthUniform;
     GLint mSpecularExponentUniform;

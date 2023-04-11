@@ -80,8 +80,8 @@ RenderWindow::RenderWindow(const QSurfaceFormat &format, MainWindow *mainWindow)
     mObjects.push_back(npc);
     npc_Curve = false;
 
-    heightMap = new HeightMap((char*)("../3Dprog22/heigtmap.png"));
-    //heightMap = new HeightMap((char*)("C:/Users/wohal/source/repos/OpenGL-Scene/oblig2/3Dprog22/heightmap.png"));
+    //heightMap = new HeightMap((char*)("../3Dprog22/heigtmap.png"));
+    heightMap = new HeightMap("C:/Users/toben/Documents/Qt/OpenGL-Scene-AndreasBranch/3Dprog22/heightmap.png");
     heightMap->setPosition3D(QVector3D{0.0f, 0.0f,0.0f});
     mObjects.push_back(heightMap);
 
@@ -172,17 +172,18 @@ void RenderWindow::init()
     mShaderProgram[0] = new Shader("../3Dprog22/plainshader.vert", "../3Dprog22/plainshader.frag");
     // For me (Andreas) "../3Dprog22/[filename]" does not work
     mShaderProgram[1] = new Shader("../3Dprog22/textureshader.vert", "../3Dprog22/textureshader.frag");
-    //mShaderProgram[1] = new Shader("C:/Users/wohal/source/repos/OpenGL-Scene/oblig2/3Dprog22/textureshader.vert", "C:/Users/wohal/source/repos/OpenGL-Scene/oblig2/3Dprog22/textureshader.frag");
-    mShaderProgram[2] = new Shader("../3Dprog22/phongshader.vert", "../3Dprog22/phongshader.frag");
+    //mShaderProgram[1] = new Shader("C:/Users/wohal/source/repos/OpenGL-Scene/oblig2/3Dprog22/textureshader.vert", "C:/Users/toben/Documents/Qt/OpenGL-Scene-AndreasBranch/3Dprog22/textureshader.frag");
+
+    //mShaderProgram[2] = new Shader("../3Dprog22/phongshader.vert", "../3Dprog22/phongshader.frag");
     //mShaderProgram[2] = new Shader("C:/Users/wohal/source/repos/OpenGL-Scene/oblig2/3Dprog22/phongshader.vert", "C:/Users/wohal/source/repos/OpenGL-Scene/oblig2/3Dprog22/phongshader.frag");
 
     // Setups up different matrices for the different shaders
     setupPlainShader(0);
     setupTextureShader(1);
-    setupPhongShader(2);
+    //setupPhongShader(2);
 
     // Initilizes texture
-    //dogTexture = new Texture((char*)("C:/Users/wohal/source/repos/OpenGL-Scene/oblig2/3Dprog22/dog.jpg"));
+    //dogTexture = new Texture((char*)("C:/Users/toben/Documents/Qt/OpenGL-Scene-AndreasBranch/3Dprog22/dog.jpg"));
     dogTexture = new Texture((char*)("../3Dprog22/dog.jpg"));
     dogTexture->LoadTexture();
 
@@ -219,15 +220,15 @@ void RenderWindow::render()
     // What shader to use (plainshader)
     glUseProgram(mShaderProgram[0]->getProgram());
     //send data to shaders
-    glUniformMatrix4fv(mVmatrixUniform0, 1, GL_TRUE, mCamera.mVmatrix.constData());
-    glUniformMatrix4fv(mPmatrixUniform0, 1, GL_TRUE, mCamera.mPmatrix.constData());
+    //glUniformMatrix4fv(mVmatrixUniform0, 1, GL_TRUE, mCamera.mVmatrix.constData());
+    //glUniformMatrix4fv(mPmatrixUniform0, 1, GL_TRUE, mCamera.mPmatrix.constData());
 
-    glUniformMatrix4fv( mMatrixUniform0, 1, GL_TRUE, light->mMatrix.constData());
-    light->draw();
+//    glUniformMatrix4fv( mMatrixUniform0, 1, GL_TRUE, light->mMatrix.constData());
+    //light->draw();
 
     //mCamera.lookAt(QVector3D{6.0f, 2.5f, 6.0f}, QVector3D{0.0f, 0.0f, 0.0f}, QVector3D{0.0f, 1.0f, 0.0f});
     mCamera.lookAt(cameraEye, cameraAt, cameraUp);
-    mCamera.update();
+    mCamera.update(mPmatrixUniform0, mVmatrixUniform0);
 
 //    // Draws all objects using phong shading
 //    // What shader to use (texture & phong shader)
@@ -260,12 +261,19 @@ void RenderWindow::render()
 //    //Texture
 //    glUniform1i(mTextureUniform2, 1);
 
-    // Draw
+     //Draw
     for (auto it = mObjects.begin(); it != mObjects.end(); it++)
     {
         if ((*it) == door) // Does not render house object with plainshader
+        {
             it++;
-        (*it)->draw();
+            //mLogger->logText("skipping door");
+        }
+        else
+        {
+            (*it)->draw();
+            //mLogger->logText("Loads other objects");
+        }
     }
 
     // What shader to use (textureshader)
@@ -275,9 +283,12 @@ void RenderWindow::render()
     glUniform1i(mTextureUniform1, 0);
     dogTexture->UseTexture();
 
-    mCamera.update();
+    mCamera.update(mPmatrixUniform1, mVmatrixUniform1);
 
     door->draw();
+
+    glBindTexture(GL_TEXTURE_2D, 0);
+
 
     // Get the matrixUniform location from the shader
     // This has to match the "matrix" variable name in the vertex shader
