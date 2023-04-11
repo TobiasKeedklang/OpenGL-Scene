@@ -10,6 +10,7 @@
 #include "camera.h"
 #include "controller.h"
 #include "visualobject.h"
+#include "texture.h"
 
 class QOpenGLContext;
 class Shader;
@@ -37,17 +38,25 @@ private slots:
 
 private:
 //    Vertex m_v;
+
+    //unsigned int texture;
+
     std::vector<VisualObject*> mObjects;
     std::vector<VisualObject*> trophies;
     VisualObject* mia;      //member interactive object
     VisualObject* plane;
     VisualObject* house;
     VisualObject* door;
+    class Light* light{nullptr};
     VisualObject* curve;
     VisualObject* line;
     VisualObject* npc;
+    VisualObject* heightMap;
     Camera mCamera;
     Controller controller;
+
+    Texture* dogTexture;
+
     void init();            //initialize things we need before rendering
 
     bool npc_Curve, npc_swap;
@@ -63,10 +72,9 @@ private:
     QOpenGLContext *mContext{nullptr};  //Our OpenGL context
     bool mInitialized{false};
 
-    Shader *mShaderProgram{nullptr};    //holds pointer the GLSL shader program
-    GLint  mMatrixUniform;              //OpenGL reference to the Uniform in the shader program
-    GLint  mPmatrixUniform;
-    GLint  mVmatrixUniform;
+    //Shader *mShaderProgram{nullptr};    //holds pointer the GLSL shader program
+    Shader *mTexShaderProgram{nullptr};
+    Shader *mShaderProgram[4];
 
     GLuint mVAO;                        //OpenGL reference to our VAO
     GLuint mVBO;                        //OpenGL reference to our VBO
@@ -90,6 +98,32 @@ private:
 
     ///Starts QOpenGLDebugLogger if possible
     void startOpenGLDebugger();
+
+    void setupPlainShader(int shaderIndex);
+    GLint  mMatrixUniform0;              //OpenGL reference to the Uniform in the shader program
+    GLint  mPmatrixUniform0{0};
+    GLint  mVmatrixUniform0{0};
+
+    void setupTextureShader(int shaderIndex);
+    GLint  mMatrixUniform1{};
+    GLint  mPmatrixUniform1{};
+    GLint  mVmatrixUniform1{};
+    GLint  mTextureUniform1{};
+
+    void setupPhongShader(int shaderIndex);
+    GLint mMatrixUniform2{};
+    GLint mPmatrixUniform2{};
+    GLint mVmatrixUniform2{};
+
+    GLint mLightColorUniform{};
+    GLint mObjectColorUniform{};
+    GLint mAmbientLightStrengthUniform{};
+    GLint mLightPositionUniform{};
+    GLint mCameraPositionUniform;
+    GLint mSpecularStrengthUniform;
+    GLint mSpecularExponentUniform;
+    GLint mLightPowerUniform;
+    GLint mTextureUniform2;
 
 protected:
     //The QWindow that we inherit from have these functions to capture

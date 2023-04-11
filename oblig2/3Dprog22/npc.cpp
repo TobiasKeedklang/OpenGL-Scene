@@ -42,6 +42,8 @@ void NPC::init(GLint matrixUniform)
                           sizeof(Vertex),
                           reinterpret_cast<GLvoid*>(3 * sizeof(GLfloat)));
     glEnableVertexAttribArray(1);
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), reinterpret_cast<GLvoid*>(6 * sizeof(GLfloat)));
+    glEnableVertexAttribArray(2);
 
     glBindVertexArray(0);
 }

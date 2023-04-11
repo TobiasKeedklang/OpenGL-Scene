@@ -15,13 +15,8 @@ struct Vertex {
     float m_normal[3];  // Normal in 3D/RGB colours
     float m_st[2];      // Texture Coordinates if used
 
-public:
     Vertex();
     Vertex(float x, float y, float z, float r, float g, float b);
-<<<<<<< Updated upstream
-=======
     Vertex(float x, float y, float z, float r, float g, float b, float s, float t);
-
->>>>>>> Stashed changes
 };
 #endif // VERTEX_H

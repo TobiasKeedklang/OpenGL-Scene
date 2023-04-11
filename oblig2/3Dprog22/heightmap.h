@@ -11,7 +11,6 @@ public:
 
     void init(GLint matrixUniform);
     void draw();
-
     float getHeight(QVector2D p);
 
 private:

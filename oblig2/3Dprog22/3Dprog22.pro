@@ -9,8 +9,10 @@ SOURCES += main.cpp \
     camera.cpp \
     curve.cpp \
     door.cpp \
+    heightmap.cpp \
     house.cpp \
     interactiveobject.cpp \
+    light.cpp \
     line.cpp \
     logger.cpp \
     mainwindow.cpp \
@@ -18,6 +20,8 @@ SOURCES += main.cpp \
     plane.cpp \
     renderwindow.cpp \
     shader.cpp \
+    stb_image.cpp \
+    texture.cpp \
     tobject.cpp \
     vertex.cpp \
     visualobject.cpp
@@ -27,8 +31,10 @@ HEADERS += \
     controller.h \
     curve.h \
     door.h \
+    heightmap.h \
     house.h \
     interactiveobject.h \
+    light.h \
     line.h \
     logger.h \
     mainwindow.h \
@@ -36,6 +42,8 @@ HEADERS += \
     plane.h \
     renderwindow.h \
     shader.h \
+    stb_image.h \
+    texture.h \
     tobject.h \
     vertex.h \
     visualobject.h
@@ -44,5 +52,9 @@ FORMS += \
     mainwindow.ui
 
 DISTFILES += \
+    phongshader.frag \
+    phongshader.vert \
     plainshader.frag \
-    plainshader.vert
+    plainshader.vert \
+    textureshader.frag \
+    textureshader.vert
