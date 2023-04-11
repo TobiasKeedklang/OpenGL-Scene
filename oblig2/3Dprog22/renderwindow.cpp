@@ -80,8 +80,8 @@ RenderWindow::RenderWindow(const QSurfaceFormat &format, MainWindow *mainWindow)
     mObjects.push_back(npc);
     npc_Curve = false;
 
-    //heightMap = new HeightMap((char*)("../3Dprog22/heigtmap.png"));
-    heightMap = new HeightMap("C:/Users/toben/Documents/Qt/OpenGL-Scene-AndreasBranch/3Dprog22/heightmap.png");
+    heightMap = new HeightMap((char*)("../3Dprog22/heigtmap.png"));
+    //heightMap = new HeightMap((char*)("C:/Users/toben/Documents/Qt/OpenGL-Scene-AndreasBranch/3Dprog22/heightmap.png"));
     heightMap->setPosition3D(QVector3D{0.0f, 0.0f,0.0f});
     mObjects.push_back(heightMap);
 
