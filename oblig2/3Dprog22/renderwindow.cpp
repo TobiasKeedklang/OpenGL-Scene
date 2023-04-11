@@ -174,6 +174,7 @@ void RenderWindow::init()
     mShaderProgram[1] = new Shader("../3Dprog22/textureshader.vert", "../3Dprog22/textureshader.frag");
     //mShaderProgram[1] = new Shader("C:/Users/wohal/source/repos/OpenGL-Scene/oblig2/3Dprog22/textureshader.vert", "C:/Users/wohal/source/repos/OpenGL-Scene/oblig2/3Dprog22/textureshader.frag");
     mShaderProgram[2] = new Shader("../3Dprog22/phongshader.vert", "../3Dprog22/phongshader.frag");
+    //mShaderProgram[2] = new Shader("C:/Users/wohal/source/repos/OpenGL-Scene/oblig2/3Dprog22/phongshader.vert", "C:/Users/wohal/source/repos/OpenGL-Scene/oblig2/3Dprog22/phongshader.frag");
 
     // Setups up different matrices for the different shaders
     setupPlainShader(0);
